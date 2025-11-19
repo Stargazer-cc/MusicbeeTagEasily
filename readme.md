@@ -1,8 +1,8 @@
-# MusicBee Quick Tag Browser 插件使用指南
+# MusicbeeTagEasily 插件使用指南
 
 ## 📋 插件简介
 
-**Quick Tag Browser** 是一个强大的 MusicBee 插件，帮助您快速浏览和应用音乐库中已存在的标签值。通过直观的列式界面，您可以高效地为歌曲批量添加标签，极大提升音乐库管理效率。
+**MusicbeeTagEasily** 是一个强大的 MusicBee 插件，帮助您快速浏览和应用音乐库中已存在的标签值。通过直观的列式界面，您可以高效地为歌曲批量添加标签，极大提升音乐库管理效率。
 
 **版本**: v1.4  
 **适用**: MusicBee 3.0+
@@ -43,7 +43,7 @@
 .\build.bat
 ```
 
-编译成功后会生成 `mb_QuickTag.dll` 文件。
+编译成功后会生成 `MusicbeeTagEasily.dll` 文件。
 
 ### 2. 安装到 MusicBee
 
@@ -51,7 +51,7 @@
    - 通常位于：`C:\Program Files (x86)\MusicBee\Plugins`
    - 或在 MusicBee 中：`编辑` → `首选项` → `插件` → `打开插件文件夹`
 
-2. 将 `mb_QuickTag.dll` 复制到 Plugins 文件夹
+2. 将 `MusicbeeTagEasily.dll` 复制到 Plugins 文件夹
 
 3. 重启 MusicBee
 
@@ -59,7 +59,7 @@
 
 1. 打开 MusicBee
 2. 进入 `编辑` → `首选项` → `插件`
-3. 在插件列表中找到 **"Quick Tag Browser v1.4"**
+3. 在插件列表中找到 **"MusicbeeTagEasily v1.4"**
 4. 确保插件已启用（勾选）
 
 ---
@@ -69,7 +69,7 @@
 ### 首次配置
 
 1. 在 MusicBee 中：`编辑` → `首选项` → `插件`
-2. 选中 **"Quick Tag Browser"**
+2. 选中 **"MusicbeeTagEasily"**
 3. 点击右侧的 **"配置"** 按钮
 4. 等待扫描完成（会显示"正在扫描音乐库..."）
 
@@ -93,7 +93,7 @@
 
 随时可以重新打开配置窗口调整显示的字段。设置会保存在：
 ```
-<MusicBee数据目录>\QuickTagBrowser_Fields.txt
+<MusicBee数据目录>\MusicbeeTagEasily_Fields.txt
 ```
 
 ---
@@ -104,7 +104,7 @@
 
 #### 1. 打开 Tag Browser
 
-在 MusicBee 菜单栏：`工具` → `Quick Tag Browser`
+在 MusicBee 菜单栏：`工具` → `MusicbeeTagEasily`
 
 窗口会打开并保持在前台，显示类似这样的界面：
 
@@ -291,7 +291,7 @@ Tag Browser 显示所有已存在的分组，确保标签一致性。
 
 **A**: 删除设置文件：
 ```
-<MusicBee数据目录>\QuickTagBrowser_Fields.txt
+<MusicBee数据目录>\MusicbeeTagEasily_Fields.txt
 ```
 下次打开配置窗口会使用默认字段（Grouping, Genre, Mood）。
 

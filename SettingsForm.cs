@@ -33,7 +33,7 @@ namespace MusicBeePlugin
             public SettingsForm(MusicBeeApiInterface api, string storagePath, List<MetaDataType> currentFields)
             {
                 mbApi = api;
-                settingsPath = Path.Combine(storagePath, "QuickTagBrowser_Fields.txt");
+                settingsPath = Path.Combine(storagePath, "MusicbeeTagEasily_Fields.txt");
                 selectedFields = new List<MetaDataType>(currentFields);
                 fieldNames = new Dictionary<MetaDataType, string>();
                 fieldDataCounts = new Dictionary<MetaDataType, int>();
@@ -46,7 +46,7 @@ namespace MusicBeePlugin
 
             private void InitializeComponent()
             {
-                this.Text = "Quick Tag Browser - 字段设置";
+                this.Text = "MusicbeeTagEasily - 字段设置";
                 this.Size = new Size(600, 650);
                 this.StartPosition = FormStartPosition.CenterParent;
                 this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -280,7 +280,7 @@ namespace MusicBeePlugin
 
             public static List<MetaDataType> LoadSettings(string storagePath)
             {
-                string settingsPath = Path.Combine(storagePath, "QuickTagBrowser_Fields.txt");
+                string settingsPath = Path.Combine(storagePath, "MusicbeeTagEasily_Fields.txt");
                 List<MetaDataType> fields = new List<MetaDataType>();
 
                 if (File.Exists(settingsPath))

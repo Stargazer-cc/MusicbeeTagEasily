@@ -17,7 +17,7 @@ namespace MusicBeePlugin
             mbApiInterface.Initialise(apiInterfacePtr);
 
             about.PluginInfoVersion = 1;
-            about.Name = "Quick Tag Browser";
+            about.Name = "MusicbeeTagEasily";
             about.Description = "浏览并快速应用音乐库中已存在的标签值";
             about.Author = "Antigravity";
             about.TargetApplication = "";
@@ -44,7 +44,7 @@ namespace MusicBeePlugin
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     MessageBox.Show("设置已保存！下次打开 Tag Browser 时生效。", 
-                        "Quick Tag Browser", 
+                        "MusicbeeTagEasily", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Information);
                     return true;
@@ -70,7 +70,7 @@ namespace MusicBeePlugin
             switch (type)
             {
                 case NotificationType.PluginStartup:
-                    mbApiInterface.MB_AddMenuItem("mnuTools/Quick Tag Browser", null, OnQuickTagBrowser);
+                    mbApiInterface.MB_AddMenuItem("mnuTools/MusicbeeTagEasily", null, OnQuickTagBrowser);
                     break;
             }
         }
@@ -94,7 +94,7 @@ namespace MusicBeePlugin
             catch (Exception ex)
             {
                 MessageBox.Show("错误: " + ex.Message + "\n\n" + ex.StackTrace, 
-                    "Quick Tag Browser", 
+                    "MusicbeeTagEasily", 
                     MessageBoxButtons.OK, 
                     MessageBoxIcon.Error);
             }
