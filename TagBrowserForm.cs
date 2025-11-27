@@ -73,7 +73,7 @@ namespace MusicBeePlugin
 
             private void InitializeComponent()
             {
-                this.Text = "MusicbeeTagEasily v1.5";
+                this.Text = "MusicbeeTagEasily v2.0";
                 this.Size = new Size(1200, 700);
                 this.StartPosition = FormStartPosition.CenterParent;
                 this.FormBorderStyle = FormBorderStyle.Sizable;

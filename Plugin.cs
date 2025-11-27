@@ -19,14 +19,14 @@ namespace MusicBeePlugin
             about.PluginInfoVersion = 1;
             about.Name = "MusicbeeTagEasily";
             about.Description = "浏览并快速应用音乐库中已存在的标签值";
-            about.Author = "Antigravity";
+            about.Author = "Stargazer-cc";
             about.TargetApplication = "";
             about.Type = PluginType.General;
-            about.VersionMajor = 1;
-            about.VersionMinor = 3;
+            about.VersionMajor = 2;
+            about.VersionMinor = 0;
             about.Revision = 0;
             about.MinInterfaceVersion = 20;
-            about.MinApiRevision = 25;
+            about.MinApiRevision = 35;
             about.ReceiveNotifications = (ReceiveNotificationFlags.StartupOnly);
             about.ConfigurationPanelHeight = 0;
 
@@ -43,7 +43,7 @@ namespace MusicBeePlugin
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("设置已保存！下次打开 Tag Browser 时生效。", 
+                    MessageBox.Show("设置已保存！下次打开工具页面时生效。", 
                         "MusicbeeTagEasily", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Information);

@@ -11,11 +11,14 @@ namespace MusicBeePlugin
     {
         public class SettingsForm : Form
         {
-            private CheckedListBox checkedListBox;
+            private ListBox lbAvailable;
+            private ListBox lbSelected;
+            private Button btnAdd;
+            private Button btnRemove;
+            private Button btnMoveUp;
+            private Button btnMoveDown;
             private Button btnOK;
             private Button btnCancel;
-            private Button btnSelectAll;
-            private Button btnDeselectAll;
             private Label lblInfo;
             private Label lblScanning;
 
@@ -40,144 +43,221 @@ namespace MusicBeePlugin
                 
                 InitializeComponent();
                 ScanLibraryFields();
-                PopulateFieldList();
-                LoadCurrentSelection();
+                PopulateFieldLists();
             }
 
             private void InitializeComponent()
             {
                 this.Text = "MusicbeeTagEasily - 字段设置";
-                this.Size = new Size(600, 650);
+                this.Size = new Size(800, 600);
                 this.StartPosition = FormStartPosition.CenterParent;
                 this.FormBorderStyle = FormBorderStyle.FixedDialog;
                 this.MaximizeBox = false;
                 this.MinimizeBox = false;
 
+                // Main Layout
+                TableLayoutPanel mainLayout = new TableLayoutPanel();
+                mainLayout.Dock = DockStyle.Fill;
+                mainLayout.ColumnCount = 3;
+                mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45F));
+                mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
+                mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55F));
+                mainLayout.RowCount = 3;
+                mainLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F)); // Top Info
+                mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F)); // Lists
+                mainLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F)); // Bottom Buttons
+                mainLayout.Padding = new Padding(10);
+                this.Controls.Add(mainLayout);
+
                 // Info label
                 lblInfo = new Label();
-                lblInfo.Text = "选择要在 Tag Browser 中显示的字段：";
-                lblInfo.Dock = DockStyle.Top;
-                lblInfo.Height = 30;
+                lblInfo.Text = "选择要在 Tag Browser 中显示的字段。右侧列表的顺序决定了显示时的列顺序。";
+                lblInfo.Dock = DockStyle.Fill;
                 lblInfo.TextAlign = ContentAlignment.MiddleLeft;
-                lblInfo.Padding = new Padding(10, 0, 10, 0);
-                this.Controls.Add(lblInfo);
+                mainLayout.Controls.Add(lblInfo, 0, 0);
+                mainLayout.SetColumnSpan(lblInfo, 3);
 
-                // Scanning label
+                // Left Panel (Available)
+                Panel pnlLeft = new Panel();
+                pnlLeft.Dock = DockStyle.Fill;
+                
+                Label lblLeft = new Label();
+                lblLeft.Text = "可用字段:";
+                lblLeft.Dock = DockStyle.Top;
+                lblLeft.Height = 25;
+                pnlLeft.Controls.Add(lblLeft);
+
+                lbAvailable = new ListBox();
+                lbAvailable.Dock = DockStyle.Fill;
+                lbAvailable.SelectionMode = SelectionMode.MultiExtended;
+                lbAvailable.Font = new Font(this.Font.FontFamily, 10);
+                lbAvailable.IntegralHeight = false; // Prevent resizing issues
+                pnlLeft.Controls.Add(lbAvailable);
+                lbAvailable.BringToFront(); // Ensure it's not covered
+
+                mainLayout.Controls.Add(pnlLeft, 0, 1);
+
+                // Center Panel (Buttons)
+                Panel pnlCenter = new Panel();
+                pnlCenter.Dock = DockStyle.Fill;
+                
+                // Add/Remove Buttons
+                btnAdd = new Button();
+                btnAdd.Text = ">>"; // Add to Selected
+                btnAdd.Size = new Size(60, 30);
+                btnAdd.Location = new Point(10, 100);
+                btnAdd.Click += BtnAdd_Click;
+                pnlCenter.Controls.Add(btnAdd);
+
+                btnRemove = new Button();
+                btnRemove.Text = "<<"; // Remove from Selected
+                btnRemove.Size = new Size(60, 30);
+                btnRemove.Location = new Point(10, 140);
+                btnRemove.Click += BtnRemove_Click;
+                pnlCenter.Controls.Add(btnRemove);
+
+                mainLayout.Controls.Add(pnlCenter, 1, 1);
+
+                // Right Panel (Selected + Sort)
+                Panel pnlRight = new Panel();
+                pnlRight.Dock = DockStyle.Fill;
+
+                Label lblRight = new Label();
+                lblRight.Text = "已选字段 (从上到下 = 从左到右):";
+                lblRight.Dock = DockStyle.Top;
+                lblRight.Height = 25;
+                pnlRight.Controls.Add(lblRight);
+
+                // Container for List and Sort Buttons
+                TableLayoutPanel rightInnerLayout = new TableLayoutPanel();
+                rightInnerLayout.Dock = DockStyle.Fill;
+                rightInnerLayout.ColumnCount = 2;
+                rightInnerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+                rightInnerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+                rightInnerLayout.RowCount = 1;
+                rightInnerLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+                pnlRight.Controls.Add(rightInnerLayout);
+                rightInnerLayout.BringToFront();
+
+                lbSelected = new ListBox();
+                lbSelected.Dock = DockStyle.Fill;
+                lbSelected.SelectionMode = SelectionMode.MultiExtended;
+                lbSelected.Font = new Font(this.Font.FontFamily, 10);
+                lbSelected.IntegralHeight = false;
+                rightInnerLayout.Controls.Add(lbSelected, 0, 0);
+
+                // Sort Buttons Panel
+                Panel pnlSort = new Panel();
+                pnlSort.Dock = DockStyle.Fill;
+                
+                btnMoveUp = new Button();
+                btnMoveUp.Text = "上移";
+                btnMoveUp.Size = new Size(50, 30);
+                btnMoveUp.Location = new Point(5, 100);
+                btnMoveUp.Click += BtnMoveUp_Click;
+                pnlSort.Controls.Add(btnMoveUp);
+
+                btnMoveDown = new Button();
+                btnMoveDown.Text = "下移";
+                btnMoveDown.Size = new Size(50, 30);
+                btnMoveDown.Location = new Point(5, 140);
+                btnMoveDown.Click += BtnMoveDown_Click;
+                pnlSort.Controls.Add(btnMoveDown);
+
+                rightInnerLayout.Controls.Add(pnlSort, 1, 0);
+
+                mainLayout.Controls.Add(pnlRight, 2, 1);
+
+                // Bottom Panel (OK/Cancel)
+                FlowLayoutPanel bottomPanel = new FlowLayoutPanel();
+                bottomPanel.Dock = DockStyle.Fill;
+                bottomPanel.FlowDirection = FlowDirection.RightToLeft;
+                bottomPanel.Padding = new Padding(0, 10, 10, 0);
+                
+                btnCancel = new Button();
+                btnCancel.Text = "取消";
+                btnCancel.Size = new Size(90, 30);
+                btnCancel.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; this.Close(); };
+                bottomPanel.Controls.Add(btnCancel);
+
+                btnOK = new Button();
+                btnOK.Text = "确定";
+                btnOK.Size = new Size(90, 30);
+                btnOK.Click += BtnOK_Click;
+                bottomPanel.Controls.Add(btnOK);
+
+                mainLayout.Controls.Add(bottomPanel, 0, 2);
+                mainLayout.SetColumnSpan(bottomPanel, 3);
+
+                // Scanning label (Overlay)
                 lblScanning = new Label();
                 lblScanning.Text = "正在扫描音乐库...";
                 lblScanning.Dock = DockStyle.Fill;
                 lblScanning.TextAlign = ContentAlignment.MiddleCenter;
                 lblScanning.Font = new Font(this.Font.FontFamily, 12, FontStyle.Bold);
                 lblScanning.ForeColor = Color.DarkBlue;
+                lblScanning.BackColor = SystemColors.Control;
                 this.Controls.Add(lblScanning);
-
-                // Button panel
-                Panel buttonPanel = new Panel();
-                buttonPanel.Dock = DockStyle.Bottom;
-                buttonPanel.Height = 80;
-                this.Controls.Add(buttonPanel);
-
-                // Select/Deselect buttons
-                btnSelectAll = new Button();
-                btnSelectAll.Text = "全选";
-                btnSelectAll.Location = new Point(10, 10);
-                btnSelectAll.Size = new Size(100, 30);
-                btnSelectAll.Click += (s, e) =>
-                {
-                    for (int i = 0; i < checkedListBox.Items.Count; i++)
-                        checkedListBox.SetItemChecked(i, true);
-                };
-                buttonPanel.Controls.Add(btnSelectAll);
-
-                btnDeselectAll = new Button();
-                btnDeselectAll.Text = "全不选";
-                btnDeselectAll.Location = new Point(120, 10);
-                btnDeselectAll.Size = new Size(100, 30);
-                btnDeselectAll.Click += (s, e) =>
-                {
-                    for (int i = 0; i < checkedListBox.Items.Count; i++)
-                        checkedListBox.SetItemChecked(i, false);
-                };
-                buttonPanel.Controls.Add(btnDeselectAll);
-
-                // OK/Cancel buttons
-                btnOK = new Button();
-                btnOK.Text = "确定";
-                btnOK.Location = new Point(370, 45);
-                btnOK.Size = new Size(100, 30);
-                btnOK.Click += BtnOK_Click;
-                buttonPanel.Controls.Add(btnOK);
-
-                btnCancel = new Button();
-                btnCancel.Text = "取消";
-                btnCancel.Location = new Point(480, 45);
-                btnCancel.Size = new Size(100, 30);
-                btnCancel.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; this.Close(); };
-                buttonPanel.Controls.Add(btnCancel);
-
-                // Checked list box (will be created after scanning)
-                checkedListBox = new CheckedListBox();
-                checkedListBox.Dock = DockStyle.Fill;
-                checkedListBox.CheckOnClick = true;
-                checkedListBox.Font = new Font(this.Font.FontFamily, 10);
-                checkedListBox.Margin = new Padding(0, 50, 0, 0);  // Add top margin
-                checkedListBox.Visible = false;
-                this.Controls.Add(checkedListBox);
+                lblScanning.BringToFront();
             }
 
             private void ScanLibraryFields()
             {
                 Application.DoEvents(); // Update UI
 
-                // All possible fields to check
-                List<MetaDataType> allFields = new List<MetaDataType>();
-                
-                // Add Custom fields
-                for (int i = 1; i <= 16; i++)
+                // 1. Get all possible fields dynamically
+                List<MetaDataType> fieldsToScan = new List<MetaDataType>();
+                foreach (MetaDataType field in Enum.GetValues(typeof(MetaDataType)))
                 {
-                    allFields.Add((MetaDataType)Enum.Parse(typeof(MetaDataType), "Custom" + i));
+                    // Exclude specific fields based on user request and performance
+                    if (field == MetaDataType.Artist || 
+                        field == MetaDataType.TrackTitle || 
+                        field == MetaDataType.Year ||
+                        field == MetaDataType.Artwork ||
+                        field == MetaDataType.Lyrics)
+                    {
+                        continue;
+                    }
+                    
+                    fieldsToScan.Add(field);
                 }
-                
-                // Add Virtual fields
-                for (int i = 1; i <= 25; i++)
-                {
-                    allFields.Add((MetaDataType)Enum.Parse(typeof(MetaDataType), "Virtual" + i));
-                }
-                
-                // Add standard fields
-                allFields.Add(MetaDataType.Genre);
-                allFields.Add(MetaDataType.Mood);
-                allFields.Add(MetaDataType.Grouping);
-                allFields.Add(MetaDataType.Publisher);
-                allFields.Add(MetaDataType.Keywords);
-                allFields.Add(MetaDataType.Occasion);
-                allFields.Add(MetaDataType.Quality);
-                allFields.Add(MetaDataType.Tempo);
-                allFields.Add(MetaDataType.Origin);
-                allFields.Add(MetaDataType.Lyricist);
-                allFields.Add(MetaDataType.Composer);
-                allFields.Add(MetaDataType.Conductor);
-                allFields.Add(MetaDataType.Comment);
 
-                // Scan library
+                MetaDataType[] fieldsArray = fieldsToScan.ToArray();
+
+                // 2. Scan library using batch retrieval
                 string[] allFiles;
                 if (mbApi.Library_QueryFilesEx("", out allFiles))
                 {
-                    foreach (var field in allFields)
+                    // Prepare storage for unique values
+                    Dictionary<MetaDataType, HashSet<string>> fieldUniqueValues = new Dictionary<MetaDataType, HashSet<string>>();
+                    foreach(var field in fieldsToScan)
                     {
-                        HashSet<string> uniqueValues = new HashSet<string>();
-                        
-                        foreach (string file in allFiles)
+                        fieldUniqueValues[field] = new HashSet<string>();
+                    }
+
+                    // Single pass scan
+                    foreach (string file in allFiles)
+                    {
+                        string[] tagValues;
+                        if (mbApi.Library_GetFileTags(file, fieldsArray, out tagValues))
                         {
-                            string value = mbApi.Library_GetFileTag(file, field);
-                            if (!string.IsNullOrWhiteSpace(value))
+                            for (int i = 0; i < fieldsArray.Length; i++)
                             {
-                                uniqueValues.Add(value);
+                                string value = tagValues[i];
+                                if (!string.IsNullOrWhiteSpace(value))
+                                {
+                                    fieldUniqueValues[fieldsArray[i]].Add(value);
+                                }
                             }
                         }
+                    }
 
-                        if (uniqueValues.Count > 0)
+                    // 3. Populate results
+                    foreach (var kvp in fieldUniqueValues)
+                    {
+                        if (kvp.Value.Count > 0)
                         {
+                            MetaDataType field = kvp.Key;
                             string fieldName = mbApi.Setting_GetFieldName(field);
                             if (string.IsNullOrEmpty(fieldName))
                             {
@@ -185,61 +265,95 @@ namespace MusicBeePlugin
                             }
                             
                             fieldNames[field] = fieldName;
-                            fieldDataCounts[field] = uniqueValues.Count;
+                            fieldDataCounts[field] = kvp.Value.Count;
                         }
                     }
                 }
             }
 
-            private void PopulateFieldList()
+            private void PopulateFieldLists()
             {
                 lblScanning.Visible = false;
-                checkedListBox.Visible = true;
-                this.Controls.Add(checkedListBox);
 
-                if (fieldNames.Count == 0)
+                lbAvailable.Items.Clear();
+                lbSelected.Items.Clear();
+
+                // 1. Add selected fields in order
+                foreach (var field in selectedFields)
                 {
-                    checkedListBox.Items.Add("未找到任何包含数据的字段");
-                    return;
+                    if (fieldNames.ContainsKey(field))
+                    {
+                        string displayText = string.Format("{0} ({1})", fieldNames[field], fieldDataCounts[field]);
+                        lbSelected.Items.Add(new FieldItem { Field = field, DisplayText = displayText });
+                    }
                 }
 
-                // Sort by field name
+                // 2. Add remaining fields to available
                 var sortedFields = fieldNames.OrderBy(kvp => kvp.Value).ToList();
-
                 foreach (var kvp in sortedFields)
                 {
-                    MetaDataType field = kvp.Key;
-                    string fieldName = kvp.Value;
-                    int count = fieldDataCounts[field];
-                    
-                    string displayText = string.Format("{0} ({1} 个不同值)", fieldName, count);
-                    checkedListBox.Items.Add(new FieldItem { Field = field, DisplayText = displayText });
+                    if (!selectedFields.Contains(kvp.Key))
+                    {
+                         string displayText = string.Format("{0} ({1})", kvp.Value, fieldDataCounts[kvp.Key]);
+                         lbAvailable.Items.Add(new FieldItem { Field = kvp.Key, DisplayText = displayText });
+                    }
                 }
             }
 
-            private void LoadCurrentSelection()
+            private void BtnAdd_Click(object sender, EventArgs e)
             {
-                for (int i = 0; i < checkedListBox.Items.Count; i++)
+                MoveItems(lbAvailable, lbSelected);
+            }
+
+            private void BtnRemove_Click(object sender, EventArgs e)
+            {
+                MoveItems(lbSelected, lbAvailable);
+            }
+
+            private void MoveItems(ListBox source, ListBox dest)
+            {
+                List<object> itemsToRemove = new List<object>();
+                foreach (var item in source.SelectedItems)
                 {
-                    FieldItem item = checkedListBox.Items[i] as FieldItem;
-                    if (item != null && selectedFields.Contains(item.Field))
-                    {
-                        checkedListBox.SetItemChecked(i, true);
-                    }
+                    dest.Items.Add(item);
+                    itemsToRemove.Add(item);
                 }
+                
+                foreach (var item in itemsToRemove)
+                {
+                    source.Items.Remove(item);
+                }
+            }
+
+            private void BtnMoveUp_Click(object sender, EventArgs e)
+            {
+                MoveItem(-1);
+            }
+
+            private void BtnMoveDown_Click(object sender, EventArgs e)
+            {
+                MoveItem(1);
+            }
+
+            private void MoveItem(int direction)
+            {
+                if (lbSelected.SelectedItem == null || lbSelected.SelectedItems.Count > 1) return;
+                
+                int newIndex = lbSelected.SelectedIndex + direction;
+                if (newIndex < 0 || newIndex >= lbSelected.Items.Count) return;
+
+                object selected = lbSelected.SelectedItem;
+                lbSelected.Items.Remove(selected);
+                lbSelected.Items.Insert(newIndex, selected);
+                lbSelected.SelectedIndex = newIndex;
             }
 
             private void BtnOK_Click(object sender, EventArgs e)
             {
                 selectedFields.Clear();
-                
-                foreach (var item in checkedListBox.CheckedItems)
+                foreach (FieldItem item in lbSelected.Items)
                 {
-                    FieldItem fieldItem = item as FieldItem;
-                    if (fieldItem != null)
-                    {
-                        selectedFields.Add(fieldItem.Field);
-                    }
+                    selectedFields.Add(item.Field);
                 }
 
                 if (selectedFields.Count == 0)
