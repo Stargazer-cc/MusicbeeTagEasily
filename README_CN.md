@@ -1,0 +1,73 @@
+# MusicbeeTagEasily
+
+[![Version](https://img.shields.io/badge/version-v2.0-blue.svg)](https://github.com/Stargazer-cc/MusicbeeTagEasily/releases)
+[![MusicBee](https://img.shields.io/badge/MusicBee-3.0%2B-orange.svg)](https://getmusicbee.com/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Language](https://img.shields.io/badge/language-C%23-purple.svg)](https://docs.microsoft.com/en-us/dotnet/csharp/)
+
+一个 MusicBee 插件,用于快速浏览和应用音乐库中已存在的标签值。
+
+---
+
+## 功能特性
+
+- **动态字段扫描**:自动扫描所有可用标签字段,无需手动配置
+- **自定义显示顺序**:通过双列表界面调整字段的显示顺序
+- **列式并排显示**:所有字段在一个界面中并排展示,一目了然
+- **实时选曲跟踪**:自动检测 MusicBee 中的选曲变化
+- **一键快速应用**:双击标签值即可应用到选中的歌曲
+
+---
+
+## 安装
+
+1. 下载 `mb_MusicbeeTagEasily.dll` 文件
+2. 打开首选项,选择"插件"选项卡,点击"添加插件"按钮,选中下载的 `mb_MusicbeeTagEasily.dll` 文件
+
+---
+
+## 使用
+
+1. **配置字段**:`编辑` → `首选项` → `插件` → 选中插件 → `配置`
+   - 左侧:可用字段
+   - 右侧:已选字段(从上到下对应显示时从左到右)
+   - 使用 `>>` / `<<` 添加/移除字段
+   - 使用 `上移` / `下移` 调整顺序
+
+2. **打开工具**:`工具` → `MusicbeeTagEasily`
+
+3. **应用标签**:
+   - 在 MusicBee 中选择歌曲
+   - 在工具窗口中双击想要应用的标签值
+
+---
+
+## 项目结构
+
+```
+├── Plugin.cs                    # 插件主入口
+├── MusicBeeInterface.cs         # MusicBee API 接口
+├── TagBrowserForm.cs            # 标签浏览器界面
+├── SettingsForm.cs              # 设置界面
+├── build.bat                    # 编译脚本
+└── readme.md                    # 说明文档
+```
+
+---
+
+## 版本历史
+
+**v2.0** (2025-11-28)
+- 动态扫描所有可用字段
+- 支持自定义字段显示顺序
+- 优化扫描性能(批量 API)
+- 重构设置界面
+
+**v1.x**
+- 基础功能实现
+
+---
+
+## 许可证
+
+[MIT License](LICENSE)

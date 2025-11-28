@@ -1,72 +1,85 @@
 # MusicbeeTagEasily
 
-一个 MusicBee 插件，用于快速浏览和应用音乐库中已存在的标签值。
+[![Version](https://img.shields.io/badge/version-v2.0-blue.svg)](https://github.com/Stargazer-cc/MusicbeeTagEasily/releases)
+[![MusicBee](https://img.shields.io/badge/MusicBee-3.0%2B-orange.svg)](https://getmusicbee.com/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Language](https://img.shields.io/badge/language-C%23-purple.svg)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 
-**版本**: v2.0  
-**作者**: Stargazer-cc  
-**适用**: MusicBee 3.0+
+**[中文文档](README_CN.md) | English**
 
----
-
-## 功能特性
-
-- **动态字段扫描**：自动扫描所有可用标签字段，无需手动配置
-- **自定义显示顺序**：通过双列表界面调整字段的显示顺序
-- **列式并排显示**：所有字段在一个界面中并排展示，一目了然
-- **实时选曲跟踪**：自动检测 MusicBee 中的选曲变化
-- **一键快速应用**：双击标签值即可应用到选中的歌曲
+A MusicBee plugin for quickly browsing and applying existing tag values from your music library.
 
 ---
 
-## 安装
+## ✨ Features
 
-1. 下载 `mb_MusicbeeTagEasily.dll` 文件
-2. 打开首选项，选择“插件”选项卡，点击“添加插件”按钮，选中下载的 `mb_MusicbeeTagEasily.dll` 文件
-
----
-
-## 使用
-
-1. **配置字段**：`编辑` → `首选项` → `插件` → 选中插件 → `配置`
-   - 左侧：可用字段
-   - 右侧：已选字段（从上到下对应显示时从左到右）
-   - 使用 `>>` / `<<` 添加/移除字段
-   - 使用 `上移` / `下移` 调整顺序
-
-2. **打开工具**：`工具` → `MusicbeeTagEasily`
-
-3. **应用标签**：
-   - 在 MusicBee 中选择歌曲
-   - 在工具窗口中双击想要应用的标签值
+- **Dynamic Field Scanning**: Automatically scans all available tag fields without manual configuration
+- **Custom Display Order**: Adjust field display order through a dual-list interface
+- **Column-based Layout**: All fields displayed side-by-side in one interface for easy viewing
+- **Real-time Track Monitoring**: Automatically detects track selection changes in MusicBee
+- **One-click Application**: Double-click any tag value to apply it to selected tracks
 
 ---
 
-## 项目结构
+## 📦 Installation
+
+1. Download the `mb_MusicbeeTagEasily.dll` file
+2. Open MusicBee Preferences → Plugins tab → Click "Add Plugin" → Select the downloaded `mb_MusicbeeTagEasily.dll` file
+
+---
+
+## 🚀 Usage
+
+1. **Configure Fields**: `Edit` → `Preferences` → `Plugins` → Select plugin → `Configure`
+   - Left panel: Available fields
+   - Right panel: Selected fields (top-to-bottom corresponds to left-to-right display)
+   - Use `>>` / `<<` to add/remove fields
+   - Use `Move Up` / `Move Down` to adjust order
+
+2. **Open Tool**: `Tools` → `MusicbeeTagEasily`
+
+3. **Apply Tags**:
+   - Select tracks in MusicBee
+   - Double-click the desired tag value in the tool window
+
+---
+
+## 📁 Project Structure
 
 ```
-├── Plugin.cs                    # 插件主入口
-├── MusicBeeInterface.cs         # MusicBee API 接口
-├── TagBrowserForm.cs            # 标签浏览器界面
-├── SettingsForm.cs              # 设置界面
-├── build.bat                    # 编译脚本
-└── readme.md                    # 说明文档
+├── Plugin.cs                    # Plugin entry point
+├── MusicBeeInterface.cs         # MusicBee API interface
+├── TagBrowserForm.cs            # Tag browser interface
+├── SettingsForm.cs              # Settings interface
+├── build.bat                    # Build script
+└── readme.md                    # Documentation
 ```
 
 ---
 
-## 版本历史
+## 📝 Version History
 
 **v2.0** (2025-11-28)
-- 动态扫描所有可用字段
-- 支持自定义字段显示顺序
-- 优化扫描性能（批量 API）
-- 重构设置界面
+- Dynamic scanning of all available fields
+- Support for custom field display order
+- Optimized scanning performance (batch API)
+- Refactored settings interface
 
 **v1.x**
-- 基础功能实现
+- Initial implementation
 
 ---
 
-## 许可证
+## 📄 License
 
 [MIT License](LICENSE)
+
+---
+
+## 🌐 Language Support
+
+This plugin supports both English and Chinese interfaces:
+- **English** (Default)
+- **中文** (Chinese)
+
+For Chinese documentation, please refer to [README_CN.md](README_CN.md).

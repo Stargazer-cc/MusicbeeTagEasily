@@ -18,7 +18,7 @@ namespace MusicBeePlugin
 
             about.PluginInfoVersion = 1;
             about.Name = "MusicbeeTagEasily";
-            about.Description = "浏览并快速应用音乐库中已存在的标签值";
+            about.Description = Localization.Get("PluginDescription");
             about.Author = "Stargazer-cc";
             about.TargetApplication = "";
             about.Type = PluginType.General;
@@ -43,8 +43,8 @@ namespace MusicBeePlugin
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("设置已保存！下次打开工具页面时生效。", 
-                        "MusicbeeTagEasily", 
+                    MessageBox.Show(Localization.Get("SettingsSaved"), 
+                        Localization.Get("PluginTitle"), 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Information);
                     return true;
@@ -93,8 +93,8 @@ namespace MusicBeePlugin
             }
             catch (Exception ex)
             {
-                MessageBox.Show("错误: " + ex.Message + "\n\n" + ex.StackTrace, 
-                    "MusicbeeTagEasily", 
+                MessageBox.Show(Localization.Get("Error") + ": " + ex.Message + "\n\n" + ex.StackTrace, 
+                    Localization.Get("PluginTitle"), 
                     MessageBoxButtons.OK, 
                     MessageBoxIcon.Error);
             }

@@ -73,7 +73,7 @@ namespace MusicBeePlugin
 
             private void InitializeComponent()
             {
-                this.Text = "MusicbeeTagEasily v2.0";
+                this.Text = Localization.Get("BrowserTitle");
                 this.Size = new Size(1200, 700);
                 this.StartPosition = FormStartPosition.CenterParent;
                 this.FormBorderStyle = FormBorderStyle.Sizable;
@@ -105,7 +105,7 @@ namespace MusicBeePlugin
             {
                 if (selectedFiles == null || selectedFiles.Length == 0)
                 {
-                    lblSelectedTrack.Text = "未选择任何文件";
+                    lblSelectedTrack.Text = Localization.Get("NoFileSelected");
                     lblSelectedTrack.ForeColor = Color.FromArgb(255, 100, 100);
                 }
                 else if (selectedFiles.Length == 1)
@@ -117,7 +117,7 @@ namespace MusicBeePlugin
                 }
                 else
                 {
-                    lblSelectedTrack.Text = string.Format("已选中 {0} 个文件", selectedFiles.Length);
+                    lblSelectedTrack.Text = Localization.Get("FilesSelected", selectedFiles.Length);
                     lblSelectedTrack.ForeColor = Color.FromArgb(150, 255, 150);
                 }
             }
@@ -168,7 +168,7 @@ namespace MusicBeePlugin
                 if (fieldsWithData.Count == 0)
                 {
                     Label emptyLabel = new Label();
-                    emptyLabel.Text = "没有找到任何标签数据\n\n请先在设置中选择要显示的字段";
+                    emptyLabel.Text = Localization.Get("NoFieldsFound");
                     emptyLabel.Dock = DockStyle.Fill;
                     emptyLabel.TextAlign = ContentAlignment.MiddleCenter;
                     emptyLabel.Font = new Font("Microsoft YaHei", 12);
@@ -271,7 +271,7 @@ namespace MusicBeePlugin
             {
                 if (selectedFiles == null || selectedFiles.Length == 0)
                 {
-                    MessageBox.Show("请先选择音乐文件", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Localization.Get("SelectFilesFirst"), Localization.Get("Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -286,8 +286,7 @@ namespace MusicBeePlugin
                 if (string.IsNullOrEmpty(fieldName))
                     fieldName = field.ToString();
                     
-                lblSelectedTrack.Text = string.Format("✓ 已应用 '{0}' 到 {1} 字段 ({2} 个文件)", 
-                    value, fieldName, selectedFiles.Length);
+                lblSelectedTrack.Text = Localization.Get("AppliedTag", value, fieldName, selectedFiles.Length);
                 lblSelectedTrack.ForeColor = Color.FromArgb(150, 255, 150);
                 
                 Timer resetTimer = new Timer();

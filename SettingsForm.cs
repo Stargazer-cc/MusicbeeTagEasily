@@ -48,7 +48,7 @@ namespace MusicBeePlugin
 
             private void InitializeComponent()
             {
-                this.Text = "MusicbeeTagEasily - 字段设置";
+                this.Text = Localization.Get("SettingsTitle");
                 this.Size = new Size(800, 600);
                 this.StartPosition = FormStartPosition.CenterParent;
                 this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -71,7 +71,7 @@ namespace MusicBeePlugin
 
                 // Info label
                 lblInfo = new Label();
-                lblInfo.Text = "选择要在 Tag Browser 中显示的字段。右侧列表的顺序决定了显示时的列顺序。";
+                lblInfo.Text = Localization.Get("SettingsInfo");
                 lblInfo.Dock = DockStyle.Fill;
                 lblInfo.TextAlign = ContentAlignment.MiddleLeft;
                 mainLayout.Controls.Add(lblInfo, 0, 0);
@@ -82,7 +82,7 @@ namespace MusicBeePlugin
                 pnlLeft.Dock = DockStyle.Fill;
                 
                 Label lblLeft = new Label();
-                lblLeft.Text = "可用字段:";
+                lblLeft.Text = Localization.Get("AvailableFields");
                 lblLeft.Dock = DockStyle.Top;
                 lblLeft.Height = 25;
                 pnlLeft.Controls.Add(lblLeft);
@@ -123,7 +123,7 @@ namespace MusicBeePlugin
                 pnlRight.Dock = DockStyle.Fill;
 
                 Label lblRight = new Label();
-                lblRight.Text = "已选字段 (从上到下 = 从左到右):";
+                lblRight.Text = Localization.Get("SelectedFields");
                 lblRight.Dock = DockStyle.Top;
                 lblRight.Height = 25;
                 pnlRight.Controls.Add(lblRight);
@@ -151,14 +151,14 @@ namespace MusicBeePlugin
                 pnlSort.Dock = DockStyle.Fill;
                 
                 btnMoveUp = new Button();
-                btnMoveUp.Text = "上移";
+                btnMoveUp.Text = Localization.Get("MoveUp");
                 btnMoveUp.Size = new Size(50, 30);
                 btnMoveUp.Location = new Point(5, 100);
                 btnMoveUp.Click += BtnMoveUp_Click;
                 pnlSort.Controls.Add(btnMoveUp);
 
                 btnMoveDown = new Button();
-                btnMoveDown.Text = "下移";
+                btnMoveDown.Text = Localization.Get("MoveDown");
                 btnMoveDown.Size = new Size(50, 30);
                 btnMoveDown.Location = new Point(5, 140);
                 btnMoveDown.Click += BtnMoveDown_Click;
@@ -175,13 +175,13 @@ namespace MusicBeePlugin
                 bottomPanel.Padding = new Padding(0, 10, 10, 0);
                 
                 btnCancel = new Button();
-                btnCancel.Text = "取消";
+                btnCancel.Text = Localization.Get("Cancel");
                 btnCancel.Size = new Size(90, 30);
                 btnCancel.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; this.Close(); };
                 bottomPanel.Controls.Add(btnCancel);
 
                 btnOK = new Button();
-                btnOK.Text = "确定";
+                btnOK.Text = Localization.Get("OK");
                 btnOK.Size = new Size(90, 30);
                 btnOK.Click += BtnOK_Click;
                 bottomPanel.Controls.Add(btnOK);
@@ -191,7 +191,7 @@ namespace MusicBeePlugin
 
                 // Scanning label (Overlay)
                 lblScanning = new Label();
-                lblScanning.Text = "正在扫描音乐库...";
+                lblScanning.Text = Localization.Get("Scanning");
                 lblScanning.Dock = DockStyle.Fill;
                 lblScanning.TextAlign = ContentAlignment.MiddleCenter;
                 lblScanning.Font = new Font(this.Font.FontFamily, 12, FontStyle.Bold);
@@ -358,7 +358,7 @@ namespace MusicBeePlugin
 
                 if (selectedFields.Count == 0)
                 {
-                    MessageBox.Show("请至少选择一个字段！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(Localization.Get("SelectAtLeastOne"), Localization.Get("Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -374,7 +374,7 @@ namespace MusicBeePlugin
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("保存设置失败: " + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Localization.Get("SaveFailed") + ex.Message, Localization.Get("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 this.DialogResult = DialogResult.OK;
