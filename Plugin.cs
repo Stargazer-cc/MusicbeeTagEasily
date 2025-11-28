@@ -17,7 +17,7 @@ namespace MusicBeePlugin
             mbApiInterface.Initialise(apiInterfacePtr);
 
             about.PluginInfoVersion = 1;
-            about.Name = "MusicbeeTagEasily";
+            about.Name = "MusicBeeQuickTag";
             about.Description = Localization.Get("PluginDescription");
             about.Author = "Stargazer-cc";
             about.TargetApplication = "";
@@ -70,7 +70,7 @@ namespace MusicBeePlugin
             switch (type)
             {
                 case NotificationType.PluginStartup:
-                    mbApiInterface.MB_AddMenuItem("mnuTools/MusicbeeTagEasily", null, OnQuickTagBrowser);
+                    mbApiInterface.MB_AddMenuItem("mnuTools/MusicBeeQuickTag", null, OnQuickTagBrowser);
                     break;
             }
         }

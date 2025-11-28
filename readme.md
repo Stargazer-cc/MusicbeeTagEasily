@@ -1,6 +1,6 @@
-# MusicbeeTagEasily
+# MusicBeeQuickTag
 
-[![Version](https://img.shields.io/badge/version-v2.0-blue.svg)](https://github.com/Stargazer-cc/MusicbeeTagEasily/releases)
+[![Version](https://img.shields.io/badge/version-v2.0-blue.svg)](https://github.com/Stargazer-cc/MusicBeeQuickTag/releases)
 [![MusicBee](https://img.shields.io/badge/MusicBee-3.0%2B-orange.svg)](https://getmusicbee.com/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Language](https://img.shields.io/badge/language-C%23-purple.svg)](https://docs.microsoft.com/en-us/dotnet/csharp/)
@@ -23,8 +23,8 @@ A MusicBee plugin for quickly browsing and applying existing tag values from you
 
 ## 📦 Installation
 
-1. Download the `mb_MusicbeeTagEasily.dll` file
-2. Open MusicBee Preferences → Plugins tab → Click "Add Plugin" → Select the downloaded `mb_MusicbeeTagEasily.dll` file
+1. Download the `mb_MusicBeeQuickTag.dll` file
+2. Open MusicBee Preferences → Plugins tab → Click "Add Plugin" → Select the downloaded `mb_MusicBeeQuickTag.dll` file
 
 ---
 
@@ -36,7 +36,7 @@ A MusicBee plugin for quickly browsing and applying existing tag values from you
    - Use `>>` / `<<` to add/remove fields
    - Use `Move Up` / `Move Down` to adjust order
 
-2. **Open Tool**: `Tools` → `MusicbeeTagEasily`
+2. **Open Tool**: `Tools` → `MusicBeeQuickTag`
 
 3. **Apply Tags**:
    - Select tracks in MusicBee

@@ -1,6 +1,6 @@
-# MusicbeeTagEasily
+# MusicBeeQuickTag
 
-[![Version](https://img.shields.io/badge/version-v2.0-blue.svg)](https://github.com/Stargazer-cc/MusicbeeTagEasily/releases)
+[![Version](https://img.shields.io/badge/version-v2.0-blue.svg)](https://github.com/Stargazer-cc/MusicBeeQuickTag/releases)
 [![MusicBee](https://img.shields.io/badge/MusicBee-3.0%2B-orange.svg)](https://getmusicbee.com/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Language](https://img.shields.io/badge/language-C%23-purple.svg)](https://docs.microsoft.com/en-us/dotnet/csharp/)
@@ -21,8 +21,8 @@
 
 ## 安装
 
-1. 下载 `mb_MusicbeeTagEasily.dll` 文件
-2. 打开首选项,选择"插件"选项卡,点击"添加插件"按钮,选中下载的 `mb_MusicbeeTagEasily.dll` 文件
+1. 下载 `mb_MusicBeeQuickTag.dll` 文件
+2. 打开首选项,选择"插件"选项卡,点击"添加插件"按钮,选中下载的 `mb_MusicBeeQuickTag.dll` 文件
 
 ---
 
@@ -34,7 +34,7 @@
    - 使用 `>>` / `<<` 添加/移除字段
    - 使用 `上移` / `下移` 调整顺序
 
-2. **打开工具**:`工具` → `MusicbeeTagEasily`
+2. **打开工具**:`工具` → `MusicBeeQuickTag`
 
 3. **应用标签**:
    - 在 MusicBee 中选择歌曲

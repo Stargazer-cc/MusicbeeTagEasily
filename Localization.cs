@@ -28,11 +28,11 @@ namespace MusicBeePlugin
             // Plugin.cs
             zhCN.Add("PluginDescription", "浏览并快速应用音乐库中已存在的标签值");
             zhCN.Add("SettingsSaved", "设置已保存！下次打开工具页面时生效。");
-            zhCN.Add("PluginTitle", "MusicbeeTagEasily");
+            zhCN.Add("PluginTitle", "MusicBeeQuickTag");
             zhCN.Add("Error", "错误");
             
             // SettingsForm.cs
-            zhCN.Add("SettingsTitle", "MusicbeeTagEasily - 字段设置");
+            zhCN.Add("SettingsTitle", "MusicBeeQuickTag - 字段设置");
             zhCN.Add("SettingsInfo", "选择要在 Tag Browser 中显示的字段。右侧列表的顺序决定了显示时的列顺序。");
             zhCN.Add("Scanning", "正在扫描音乐库...");
             zhCN.Add("AvailableFields", "可用字段:");
@@ -46,7 +46,7 @@ namespace MusicBeePlugin
             zhCN.Add("SaveFailed", "保存设置失败: ");
             
             // TagBrowserForm.cs
-            zhCN.Add("BrowserTitle", "MusicbeeTagEasily v2.0");
+            zhCN.Add("BrowserTitle", "MusicBeeQuickTag v2.0");
             zhCN.Add("NoFileSelected", "未选择任何文件");
             zhCN.Add("FilesSelected", "已选中 {0} 个文件");
             zhCN.Add("NoFieldsFound", "没有找到任何标签数据\n\n请先在设置中选择要显示的字段");
@@ -61,11 +61,11 @@ namespace MusicBeePlugin
             // Plugin.cs
             enUS.Add("PluginDescription", "Browse and quickly apply existing tag values from your music library");
             enUS.Add("SettingsSaved", "Settings saved! Changes will take effect next time you open the tool.");
-            enUS.Add("PluginTitle", "MusicbeeTagEasily");
+            enUS.Add("PluginTitle", "MusicBeeQuickTag");
             enUS.Add("Error", "Error");
             
             // SettingsForm.cs
-            enUS.Add("SettingsTitle", "MusicbeeTagEasily - Field Settings");
+            enUS.Add("SettingsTitle", "MusicBeeQuickTag - Field Settings");
             enUS.Add("SettingsInfo", "Select fields to display in Tag Browser. The order in the right list determines the column order.");
             enUS.Add("Scanning", "Scanning music library...");
             enUS.Add("AvailableFields", "Available Fields:");
@@ -79,7 +79,7 @@ namespace MusicBeePlugin
             enUS.Add("SaveFailed", "Failed to save settings: ");
             
             // TagBrowserForm.cs
-            enUS.Add("BrowserTitle", "MusicbeeTagEasily v2.0");
+            enUS.Add("BrowserTitle", "MusicBeeQuickTag v2.0");
             enUS.Add("NoFileSelected", "No files selected");
             enUS.Add("FilesSelected", "{0} files selected");
             enUS.Add("NoFieldsFound", "No tag data found\n\nPlease select fields to display in settings");

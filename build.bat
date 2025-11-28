@@ -30,7 +30,7 @@ echo [信息] 正在编译...
 echo.
 
 :: Compile command
-%CSC% /target:library /out:mb_MusicbeeTagEasily.dll /reference:System.Windows.Forms.dll /reference:System.Drawing.dll /reference:System.Core.dll /reference:System.Data.dll Plugin.cs MusicBeeInterface.cs TagBrowserForm.cs SettingsForm.cs Localization.cs
+%CSC% /target:library /out:mb_MusicBeeQuickTag.dll /reference:System.Windows.Forms.dll /reference:System.Drawing.dll /reference:System.Core.dll /reference:System.Data.dll Plugin.cs MusicBeeInterface.cs TagBrowserForm.cs SettingsForm.cs Localization.cs
 
 if %errorlevel% neq 0 (
     echo.
@@ -42,8 +42,8 @@ if %errorlevel% neq 0 (
 echo.
 echo ==========================================
 echo [成功] 编译完成！
-echo 插件文件已生成: %CD%\mb_MusicbeeTagEasily.dll
+echo 插件文件已生成: %CD%\mb_MusicBeeQuickTag.dll
 echo ==========================================
 echo.
-echo 请将 MusicbeeTagEasily.dll 复制到 MusicBee 的 Plugins 文件夹中。
+echo 请将 MusicBeeQuickTag.dll 复制到 MusicBee 的 Plugins 文件夹中。
 pause
