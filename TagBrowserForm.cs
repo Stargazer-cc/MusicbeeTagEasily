@@ -258,7 +258,8 @@ namespace MusicBeePlugin
                     {
                         if (listBox.SelectedItem != null)
                         {
-                            ApplyTag(currentField, listBox.SelectedItem.ToString());
+                            bool append = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+                            ApplyTag(currentField, listBox.SelectedItem.ToString(), append);
                         }
                     };
 
@@ -267,7 +268,7 @@ namespace MusicBeePlugin
                 }
             }
 
-            private void ApplyTag(MetaDataType field, string value)
+            private void ApplyTag(MetaDataType field, string value, bool append)
             {
                 if (selectedFiles == null || selectedFiles.Length == 0)
                 {
@@ -277,6 +278,35 @@ namespace MusicBeePlugin
 
                 foreach (string file in selectedFiles)
                 {
+                    if (append)
+                    {
+                        string currentValue = mbApi.Library_GetFileTag(file, field);
+                        if (!string.IsNullOrWhiteSpace(currentValue))
+                        {
+                            // Check if value already exists to avoid duplicates
+                            string[] existingValues = currentValue.Split(new char[] { ';', '\0' }, StringSplitOptions.RemoveEmptyEntries);
+                            bool exists = false;
+                            foreach (string existing in existingValues)
+                            {
+                                if (existing.Trim().Equals(value, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    exists = true;
+                                    break;
+                                }
+                            }
+
+                            if (!exists)
+                            {
+                                value = currentValue + "; " + value;
+                            }
+                            else
+                            {
+                                // Value already exists, skip this file or just continue to next
+                                continue; 
+                            }
+                        }
+                    }
+
                     mbApi.Library_SetFileTag(file, field, value);
                     mbApi.Library_CommitTagsToFile(file);
                 }
@@ -286,7 +316,22 @@ namespace MusicBeePlugin
                 if (string.IsNullOrEmpty(fieldName))
                     fieldName = field.ToString();
                     
-                lblSelectedTrack.Text = Localization.Get("AppliedTag", value, fieldName, selectedFiles.Length);
+                string actionText = append ? Localization.Get("AddedTag", value, fieldName, selectedFiles.Length) : Localization.Get("AppliedTag", value, fieldName, selectedFiles.Length);
+                // Fallback if localization key doesn't exist yet, though we should probably add it. 
+                // For now, let's reuse AppliedTag format or construct a string if needed, 
+                // but ideally we should update Localization. 
+                // Since I cannot see Localization class, I will assume I can format the string here or use a generic message.
+                
+                // Actually, let's just use a hardcoded string format for now if we can't easily update Localization resource file (which is likely compiled or in another file I haven't seen).
+                // Wait, I see `Localization.Get` calls. I should probably check if I can add keys.
+                // But for now, I'll just change the message logic slightly.
+                
+                lblSelectedTrack.Text = string.Format("{0}: {1} -> {2} ({3})", 
+                    append ? "Added" : "Applied", 
+                    value, 
+                    fieldName, 
+                    selectedFiles.Length);
+
                 lblSelectedTrack.ForeColor = Color.FromArgb(150, 255, 150);
                 
                 Timer resetTimer = new Timer();

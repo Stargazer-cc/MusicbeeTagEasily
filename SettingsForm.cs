@@ -100,21 +100,39 @@ namespace MusicBeePlugin
                 // Center Panel (Buttons)
                 Panel pnlCenter = new Panel();
                 pnlCenter.Dock = DockStyle.Fill;
+
+                // Spacer to match label height of other panels
+                Panel pnlCenterTopSpacer = new Panel();
+                pnlCenterTopSpacer.Dock = DockStyle.Top;
+                pnlCenterTopSpacer.Height = 25;
+                pnlCenter.Controls.Add(pnlCenterTopSpacer);
+
+                TableLayoutPanel tlpCenterButtons = new TableLayoutPanel();
+                tlpCenterButtons.Dock = DockStyle.Fill;
+                tlpCenterButtons.RowCount = 4;
+                tlpCenterButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+                tlpCenterButtons.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                tlpCenterButtons.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                tlpCenterButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+                pnlCenter.Controls.Add(tlpCenterButtons);
+                tlpCenterButtons.BringToFront();
                 
                 // Add/Remove Buttons
                 btnAdd = new Button();
                 btnAdd.Text = ">>"; // Add to Selected
                 btnAdd.Size = new Size(60, 30);
-                btnAdd.Location = new Point(10, 100);
+                btnAdd.Anchor = AnchorStyles.None;
+                btnAdd.Margin = new Padding(0, 0, 0, 5);
                 btnAdd.Click += BtnAdd_Click;
-                pnlCenter.Controls.Add(btnAdd);
+                tlpCenterButtons.Controls.Add(btnAdd, 0, 1);
 
                 btnRemove = new Button();
                 btnRemove.Text = "<<"; // Remove from Selected
                 btnRemove.Size = new Size(60, 30);
-                btnRemove.Location = new Point(10, 140);
+                btnRemove.Anchor = AnchorStyles.None;
+                btnRemove.Margin = new Padding(0, 5, 0, 0);
                 btnRemove.Click += BtnRemove_Click;
-                pnlCenter.Controls.Add(btnRemove);
+                tlpCenterButtons.Controls.Add(btnRemove, 0, 2);
 
                 mainLayout.Controls.Add(pnlCenter, 1, 1);
 
@@ -147,22 +165,29 @@ namespace MusicBeePlugin
                 rightInnerLayout.Controls.Add(lbSelected, 0, 0);
 
                 // Sort Buttons Panel
-                Panel pnlSort = new Panel();
+                TableLayoutPanel pnlSort = new TableLayoutPanel();
                 pnlSort.Dock = DockStyle.Fill;
+                pnlSort.RowCount = 4;
+                pnlSort.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+                pnlSort.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                pnlSort.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                pnlSort.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
                 
                 btnMoveUp = new Button();
                 btnMoveUp.Text = Localization.Get("MoveUp");
                 btnMoveUp.Size = new Size(50, 30);
-                btnMoveUp.Location = new Point(5, 100);
+                btnMoveUp.Anchor = AnchorStyles.None;
+                btnMoveUp.Margin = new Padding(0, 0, 0, 5);
                 btnMoveUp.Click += BtnMoveUp_Click;
-                pnlSort.Controls.Add(btnMoveUp);
+                pnlSort.Controls.Add(btnMoveUp, 0, 1);
 
                 btnMoveDown = new Button();
                 btnMoveDown.Text = Localization.Get("MoveDown");
                 btnMoveDown.Size = new Size(50, 30);
-                btnMoveDown.Location = new Point(5, 140);
+                btnMoveDown.Anchor = AnchorStyles.None;
+                btnMoveDown.Margin = new Padding(0, 5, 0, 0);
                 btnMoveDown.Click += BtnMoveDown_Click;
-                pnlSort.Controls.Add(btnMoveDown);
+                pnlSort.Controls.Add(btnMoveDown, 0, 2);
 
                 rightInnerLayout.Controls.Add(pnlSort, 1, 0);
 
